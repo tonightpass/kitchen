@@ -1,0 +1,64 @@
+{
+  "name": "create-kitchen",
+  "version": "1.5.2",
+  "description": "Design UI like Tonight Pass in React or React Native with optimized and customizable styled-components.",
+  "keywords": [
+    "react",
+    "react-dom",
+    "react-native",
+    "ui-design",
+    "ui",
+    "kit",
+    "uikit",
+    "ui-components",
+    "styled-components",
+    "tonightpass",
+    "kitchen",
+    "kitchen-components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonightpass/kitchen",
+    "directory": "packages/create-kitchen"
+  },
+  "author": "Tonight Pass <developers@tonightpass.com>",
+  "license": "MIT",
+  "main": "dist/create-kitchen.cjs.js",
+  "module": "dist/create-kitchen.esm.js",
+  "dependencies": {
+    "async-retry": "1.3.1",
+    "async-sema": "^3.1.1",
+    "chalk": "2.4.2",
+    "ci-info": "^3.8.0",
+    "commander": "2.20.0",
+    "conf": "10.2.0",
+    "cpy": "7.3.0",
+    "cross-spawn": "^7.0.3",
+    "glob": "8.0.3",
+    "got": "10.7.0",
+    "prettier-plugin-tailwindcss": "0.2.4",
+    "prompts": "2.1.0",
+    "rimraf": "^4.4.1",
+    "tar": "4.4.10",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.3",
+    "update-check": "1.5.4",
+    "validate-npm-package-name": "3.0.0"
+  },
+  "devDependencies": {
+    "@types/async-retry": "1.4.2",
+    "@types/ci-info": "2.0.0",
+    "@types/cross-spawn": "6.0.0",
+    "@types/glob": "7.1.1",
+    "@types/node": "^12.6.8",
+    "@types/prompts": "2.0.1",
+    "@types/rimraf": "3.0.0",
+    "@types/tar": "4.0.3",
+    "@types/validate-npm-package-name": "3.0.0"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ]
+  }
+}
