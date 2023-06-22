@@ -282,6 +282,37 @@ const GlobalStyle = createGlobalStyle`
             transform: translatey(0px);
         }
     }
+
+    /* mdx style */
+
+    p {
+        font-size: ${({ theme }) => theme.size.normal};
+        font-weight: ${({ theme }) => theme.weight.regular};
+    }
+    
+    h1 {
+        font-size: ${({ theme }) => theme.size.title};
+        font-weight: ${({ theme }) => theme.weight.bold};
+    }
+
+    h2 {
+        font-size: ${({ theme }) => theme.size.large};
+        font-weight: ${({ theme }) => theme.weight.bold};
+    }
+
+    h3 {
+        font-weight: ${({ theme }) => theme.weight.semiBold};
+    }
+
+    a {
+        font-weight: ${({ theme }) => theme.weight.bold};
+        text-decoration: underline;
+        cursor: pointer;
+        :hover {
+            filter: brightness(0.8);
+        }
+    }
+
 `;
 
 export default GlobalStyle;
