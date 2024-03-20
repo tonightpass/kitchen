@@ -4,7 +4,16 @@ import {
   DateFormatter,
   DayPicker,
   DayPickerProps,
+  DateRange,
   isDateRange,
+  DayPickerDefaultProps,
+  DayPickerSingleProps,
+  DayPickerMultipleProps,
+  DayPickerRangeProps,
+  DayPickerBase,
+  SelectSingleEventHandler,
+  SelectMultipleEventHandler,
+  SelectRangeEventHandler,
 } from "react-day-picker";
 import { RiCalendarLine } from "react-icons/ri";
 import styled from "styled-components";
@@ -15,12 +24,23 @@ import Icon from "../Icon";
 import { Menu, MenuButtonProps, MenuContainerProps } from "../Menu";
 import Text from "../Text";
 
-export type { DateRange, DayPickerProps } from "react-day-picker";
+export type {
+  DateRange,
+  DayPickerBase,
+  DayPickerProps,
+  DayPickerDefaultProps,
+  DayPickerSingleProps,
+  DayPickerMultipleProps,
+  DayPickerRangeProps,
+  SelectSingleEventHandler,
+  SelectMultipleEventHandler,
+  SelectRangeEventHandler,
+};
 
 type Props = DayPickerProps & {
   placeholder?: string;
-  menuContainerProps: MenuContainerProps & DecoratorProps;
-  menuButtonProps: MenuButtonProps & DecoratorProps;
+  menuContainerProps?: MenuContainerProps & DecoratorProps;
+  menuButtonProps?: MenuButtonProps & DecoratorProps;
 };
 
 export type CalendarProps = KitchenComponent<Props>;
@@ -33,8 +53,6 @@ export const formatWeekdayName: DateFormatter = (date, options) => {
 
 const CalendarComponent = styled(
   ({
-    selected,
-    mode,
     placeholder = "Select date",
     menuContainerProps,
     menuButtonProps,
@@ -50,51 +68,57 @@ const CalendarComponent = styled(
           {...menuButtonProps}
         >
           <Text size={"small"}>
-            {selected instanceof Date
-              ? selected.toLocaleDateString(undefined, {
+            {props.selected instanceof Date
+              ? props.selected.toLocaleDateString(undefined, {
                   weekday: "short",
                   month: "short",
                   day: "numeric",
                 })
-              : selected instanceof Array &&
-                  mode === "multiple" &&
-                  selected.length > 0
-                ? selected &&
-                  selected.length === 1 &&
-                  selected.every((d) => d instanceof Date)
-                  ? selected[0].toLocaleDateString(undefined, {
+              : props.selected instanceof Array &&
+                  props.mode === "multiple" &&
+                  props.selected.length > 0
+                ? props.selected &&
+                  props.selected.length === 1 &&
+                  props.selected.every((d) => d instanceof Date)
+                  ? props.selected[0].toLocaleDateString(undefined, {
                       weekday: "short",
                       month: "short",
                       day: "numeric",
                     })
-                  : `${selected.length} days selected`
-                : isDateRange(selected) && mode === "range"
-                  ? selected.from && selected.to
-                    ? isSameDay(selected.from, selected.to)
-                      ? selected.from.toLocaleDateString(undefined, {
+                  : `${props.selected.length} days selected`
+                : isDateRange(props.selected) && props.mode === "range"
+                  ? props.selected.from && props.selected.to
+                    ? isSameDay(props.selected.from, props.selected.to)
+                      ? props.selected.from.toLocaleDateString(undefined, {
                           weekday: "short",
                           month: "short",
                           day: "numeric",
                         })
-                      : isSameMonth(selected.from, selected.to)
-                        ? `${selected.from.toLocaleDateString(undefined, {
+                      : isSameMonth(props.selected.from, props.selected.to)
+                        ? `${props.selected.from.toLocaleDateString(undefined, {
                             weekday: "short",
                             day: "numeric",
-                          })} - ${selected.to.toLocaleDateString(undefined, {
-                            weekday: "short",
-                            day: "numeric",
-                          })} ${selected.to.toLocaleDateString(undefined, {
+                          })} - ${props.selected.to.toLocaleDateString(
+                            undefined,
+                            {
+                              weekday: "short",
+                              day: "numeric",
+                            },
+                          )} ${props.selected.to.toLocaleDateString(undefined, {
                             month: "short",
                           })}`
-                        : `${selected.from.toLocaleDateString(undefined, {
+                        : `${props.selected.from.toLocaleDateString(undefined, {
                             weekday: "short",
                             month: "short",
                             day: "numeric",
-                          })} - ${selected.to.toLocaleDateString(undefined, {
-                            weekday: "short",
-                            month: "short",
-                            day: "numeric",
-                          })}`
+                          })} - ${props.selected.to.toLocaleDateString(
+                            undefined,
+                            {
+                              weekday: "short",
+                              month: "short",
+                              day: "numeric",
+                            },
+                          )}`
                     : "Select an end date"
                   : placeholder}
           </Text>
@@ -103,8 +127,6 @@ const CalendarComponent = styled(
           <StyledDayPicker
             weekStartsOn={1}
             showOutsideDays
-            mode={mode}
-            selected={selected}
             formatters={{
               formatWeekdayName,
             }}
