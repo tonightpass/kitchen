@@ -1,4 +1,11 @@
-import { Container, Text, Input, ControlledInput } from "kitchn";
+import {
+  Container,
+  Text,
+  Input,
+  ControlledInput,
+  PhoneInput,
+  Spacer,
+} from "kitchn";
 import { NextPage } from "next";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -342,6 +349,13 @@ const InputPage: NextPage = () => {
             </Container>
           </Container>
         </Container>
+
+        <Container gap={"tiny"}>
+          <Text>{"phone input"}</Text>
+          <PhoneInput htmlType={"tel"} />
+        </Container>
+
+        <Spacer y={20} />
       </Container>
     </>
   );
